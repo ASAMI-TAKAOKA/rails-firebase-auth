@@ -23,4 +23,4 @@ production:
   pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: rails_fairebase_auth_database
   username: asami_takaoka
-  password: <%= ENV['DB_PASSWORD'] %> # .envで設定
+  password: <%= ENV['DB_PASSWORD'] %> # .env.productionで設定
