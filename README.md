@@ -1,24 +1,10 @@
-# README
+# 使用技術・環境
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- 開発環境
+  - API: Rails
+  - DB: SQlite3
+- 本番環境
+  - API: Render.com
+  - DB: Render.com(PostgreSQL)
+- バージョン管理
+  - Git/GitHub
