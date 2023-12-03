@@ -1,6 +1,10 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://mom-and-baby-help.com", "http://localhost:3000"
+    if Rails.env.production?
+      origins 'https://mom-and-baby-help.com'
+    else
+      origins 'http://localhost:3000'
+    end
 
     resource "*",
              headers: :any,
