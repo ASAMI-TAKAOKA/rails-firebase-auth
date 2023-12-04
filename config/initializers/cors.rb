@@ -5,7 +5,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # else
     #   origins 'http://localhost:3000'
     # end
-    origins "https://mom-and-baby-help.com"#, "http://localhost:3000" あとで要修正 これだと開発環境動かないはず
+    # あとで要修正
+    origins "https://mom-and-baby-help.com", "http://localhost:3000"
 
     resource "*",
              headers: :any,
