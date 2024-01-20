@@ -43,7 +43,7 @@ class Api::V1::PostsController < ApplicationController
   def post_params
     params
       .require(:post)
-      .permit(:title, :body)
+      .permit(:title, :body, :category)
       .merge(user_uid: current_user.uid)
   end
 end
