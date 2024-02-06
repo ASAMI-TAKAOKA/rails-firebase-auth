@@ -9,7 +9,10 @@ class Api::V1::PostsController < ApplicationController
 
   def show
     post = Post.find(params[:id])
-    render json: post
+    comments = post.comments
+    render json: { post: post, comments: comments }
+    # comments = post.comments  #投稿詳細に関連づけてあるコメントを全取得
+    # comment = current_user.comments.new  #投稿詳細画面でコメント投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
   end
 
   def create
