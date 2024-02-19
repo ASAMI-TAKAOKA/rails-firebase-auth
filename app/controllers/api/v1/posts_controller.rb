@@ -8,8 +8,8 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
-    post = Post.find(params[:id])
-    render json: post
+    post = Post.includes(:comments).find(params[:id])
+    render json: post.as_json(include: :comments) # postに関連したcommentsが含まれたJSONレスポンスを返す
   end
 
   def create
