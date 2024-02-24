@@ -24,4 +24,4 @@ production:
   database: rails_fairebase_auth_database_2
   username: asami_takaoka
   password: <%= ENV['DB_PASSWORD'] %> # .env.productionで設定
-  host: dpg-cncvkdmn7f5s73bj3irg-a # ホスト名を追加
+  host: dpg-cncvkdmn7f5s73bj3irg-a.singapore-postgres.render.com # ホスト名を追加
