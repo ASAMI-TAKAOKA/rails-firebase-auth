@@ -18,14 +18,9 @@ test:
   database: db/test.sqlite
 
 production:
-  <<: *default
-  host: <%= ENV["DATABASE_HOST"] %> # .env.productionにメモ
-  database: <%= ENV["DATABASE"] %> # .env.productionにメモ
-  username: <%= ENV["DATABASE_USERNAME"] %> # .env.productionにメモ
-  password: <%= ENV["DATABASE_PASSWORD"] %> # .env.productionにメモ
   adapter: postgresql
-  encoding: utf8
-  reconnect: false
+  encoding: unicode
   pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  charset: utf8
-
+  database: rails_firebase_auth_database
+  username: asami_takaoka
+  password: <%= ENV['DB_PASSWORD'] %> # .env.productionにメモ
