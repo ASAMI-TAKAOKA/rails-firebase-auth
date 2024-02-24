@@ -1,12 +1,12 @@
 databases:
-  - name: rails_fairebase_auth_database
-    databaseName: rails_fairebase_auth_database
+  - name: rails_fairebase_auth_database_2
+    databaseName: rails_fairebase_auth_database_2
     user: asami_takaoka
     region: singapore
 
 services:
   - type: web
-    name: rails_fairebase_auth_database
+    name: rails_fairebase_auth_database_2
     env: ruby
     region: singapore
     buildCommand: "./bin/render-build.sh"
