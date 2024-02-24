@@ -1,5 +1,5 @@
 databases:
-  - name: pg
+  - name: rails_fairebase_auth_database_2
     databaseName: rails_fairebase_auth_database_2
     user: asami_takaoka
     region: singapore

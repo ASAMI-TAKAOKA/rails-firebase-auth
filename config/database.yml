@@ -19,11 +19,15 @@ test:
 
 production:
   <<: *default
-  host: dpg-cncvkdmn7f5s73bj3irg-a.singapore-postgres.render.com
-  database: rails_fairebase_auth_database_2
-  username: asami_takaoka
-  password: <%= ENV['DB_PASSWORD'] %> # .env.productionにメモ
+  host: <%= ENV["DATABASE_HOST"] %> # .env.productionにメモ
+  database: <%= ENV["DATABASE"] %> # .env.productionにメモ
+  username: <%= ENV["DATABASE_USERNAME"] %> # .env.productionにメモ
+  password: <%= ENV["DATABASE_PASSWORD"] %> # .env.productionにメモ
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
+  reconnect: false
   pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  charset: utf8
+  collation: utf8_general_ci
+
 
