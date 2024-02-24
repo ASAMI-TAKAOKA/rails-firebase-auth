@@ -28,7 +28,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_070456) do
     t.string "user_uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "category"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -36,7 +35,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_070456) do
     t.string "uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "comments", "posts"
