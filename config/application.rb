@@ -23,5 +23,7 @@ module MyApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    # デプロイするサービスのホストを追加する
+    config.hosts << 'rails-fairebase-auth.onrender.com'
   end
 end
