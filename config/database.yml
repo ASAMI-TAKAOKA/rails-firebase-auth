@@ -28,6 +28,4 @@ production:
   reconnect: false
   pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   charset: utf8
-  collation: utf8_general_ci
-
 
