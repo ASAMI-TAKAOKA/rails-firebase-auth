@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :posts do
         resources :comments  #commentsコントローラへのルーティング
       end
+      resources :baby_foods
       #カテゴリー分けに関係するところのみ記載
       get 'posts/house_work' => 'posts#house_work'
       get 'posts/money' => 'posts#money'
