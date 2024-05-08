@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_07_065828) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_130627) do
   create_table "baby_foods", force: :cascade do |t|
     t.string "meal_category"
     t.string "dish_name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_065828) do
     t.string "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "meal_date"
   end
 
   create_table "comments", force: :cascade do |t|

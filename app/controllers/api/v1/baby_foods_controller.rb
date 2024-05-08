@@ -18,6 +18,6 @@ class Api::V1::BabyFoodsController < ApplicationController
   private
 
   def baby_food_params
-    params.require(:baby_food).permit(:meal_category, :dish_name, :meal_time, :url, :memo)
+    params.require(:baby_food).permit(:meal_category, :dish_name, :meal_time, :url, :memo, :meal_date)
   end
 end
