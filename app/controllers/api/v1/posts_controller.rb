@@ -12,7 +12,7 @@ class Api::V1::PostsController < ApplicationController
     render json: post.as_json(include: :comments) # postに関連したcommentsが含まれたJSONレスポンスを返す
   end
 
-  def create    
+  def create
     post = current_user.posts.new(post_params)
     if post.save
       render json: post
