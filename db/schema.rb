@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_111456) do
     t.datetime "updated_at", null: false
     t.date "meal_date"
     t.integer "user_id", null: false
+    t.string "user_uid", null: false
     t.index ["user_id"], name: "index_baby_foods_on_user_id"
   end
 
