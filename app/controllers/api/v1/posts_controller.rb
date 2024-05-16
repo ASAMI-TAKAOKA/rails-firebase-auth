@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
   skip_before_action :authenticate_token, only: %i[index show]
-  before_action :set_post, only: %i[update destroy]
+  before_action :set_post_data, only: %i[update destroy]
 
   def index
     posts = Post.all.order(created_at: :DESC)
@@ -36,7 +36,7 @@ class Api::V1::PostsController < ApplicationController
 
   private
 
-  def set_post
+  def set_post_data
     @post = current_user.posts.find(params[:id])
   end
 
