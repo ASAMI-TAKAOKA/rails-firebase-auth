@@ -3,7 +3,10 @@ class Api::V1::BabyFoodsController < ApplicationController
   before_action :set_baby_food_data, only: %i[update destroy]
 
   def index
-    baby_foods = BabyFood.all.order(created_at: :DESC)
+    baby_foods = BabyFood.all
+      .order(:meal_date)
+      .order(Arel.sql("CASE WHEN meal_time = 'break_fast' THEN 1 WHEN meal_time = 'lunch' THEN 2 WHEN meal_time = 'dinner' THEN 3 END"))
+      .order(Arel.sql("CASE WHEN meal_category = 'main_dish' THEN 1 WHEN meal_category = 'main_course' THEN 2 WHEN meal_category = 'side_dish' THEN 3 WHEN meal_category = 'soup' THEN 4 WHEN meal_category = 'other' THEN 5 END"))
     render json: baby_foods
   end
 
