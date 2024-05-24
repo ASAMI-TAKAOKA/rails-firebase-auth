@@ -10,6 +10,11 @@ class Api::V1::BabyFoodsController < ApplicationController
     render json: baby_foods
   end
 
+  def show
+    baby_food = BabyFood.find(params[:id])
+    render json: baby_food
+  end
+
   def create
     # baby_foodsは、Userモデルのhas_many :baby_foodsから来ている
     baby_food = current_user.baby_foods.new(baby_food_params)
