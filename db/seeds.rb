@@ -1,3 +1,10 @@
+# Userデータの生成
+User.create!(
+  id: 1,
+  uid: "NWAKw2d992f1gsnhYT4D8k7pN2q2"
+)
+
+
 # BabyFoodデータの生成
 require 'date'
 
