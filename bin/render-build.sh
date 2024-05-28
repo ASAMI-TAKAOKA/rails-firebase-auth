@@ -2,25 +2,12 @@
 # exit on error
 set -o errexit
 
-echo "Starting bundle install..."
 bundle install
-echo "Bundle install completed."
-
-echo "Precompiling assets..."
 bundle exec rake assets:precompile
-echo "Assets precompiled."
-
-echo "Cleaning assets..."
 bundle exec rake assets:clean
-echo "Assets cleaned."
-
-echo "Running migrations..."
-bundle exec rake db:migrate
-echo "Migrations completed."
-
-echo "Seeding database..."
 bundle exec rails db:seed
-echo "Database seeding completed."
+bundle exec rake db:migrate
+# DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset # デプロイの際にデータベースをリセット。 # 一度リセットしたらコメントアウトしてbundle exec rake db:migrateとbundle exec rails db:seedを元に戻すこと！
 
 # 参考:
 # https://qiita.com/hashioga2017/items/b69cb070c0073e9c26c7
