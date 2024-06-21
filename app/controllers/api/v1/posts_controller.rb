@@ -34,9 +34,15 @@ class Api::V1::PostsController < ApplicationController
     render json: { message: "Post deleted successfully" }, status: :ok
   end
 
+  # privateメソッドは外部から直接アクセスできないため、セキュリティが向上する
+  # ヘルパーメソッドや内部処理用のメソッドとして使われることを明示する意味もある
+  # コードの意図がより明確になる
   private
 
+  # set_post_dataメソッドは、コントローラ内部でのみ使用される補助的なメソッド。
+  # privateとして定義することで、外部からこのメソッドが呼び出されるのを防ぐ（カプセル化の一環）。
   def set_post_data
+    # インスタンス変数（@post）に代入することにより、その変数がコントローラ全体で使用可能になる。
     @post = current_user.posts.find(params[:id])
   end
 

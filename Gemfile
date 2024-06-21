@@ -60,6 +60,7 @@ group :development, :test do
 
   # Configuration. Load environment variables from .env
   gem "sqlite3"
+  gem 'bullet'
 end
 
 group :production do
