@@ -31,7 +31,7 @@ class Api::V1::PostsController < ApplicationController
 
   def destroy
     @post.destroy!
-    render json: { message: "Post deleted successfully" }, status: :ok
+    render json: { message: 'Post deleted successfully' }, status: :ok
   end
 
   # privateメソッドは外部から直接アクセスできないため、セキュリティが向上する

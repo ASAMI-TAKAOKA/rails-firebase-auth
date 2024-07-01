@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  namespace :api, format: "json" do
+  namespace :api, format: 'json' do
     namespace :v1 do
-      post "/auth", to: "authentications#create"
+      post '/auth', to: 'authentications#create'
       resources :posts do
-        resources :comments  #commentsコントローラへのルーティング
+        resources :comments # commentsコントローラへのルーティング
       end
       resources :baby_foods
-      #カテゴリー分けに関係するところのみ記載
+      # カテゴリー分けに関係するところのみ記載
       get 'posts/house_work' => 'posts#house_work'
       get 'posts/work' => 'posts#work'
       get 'posts/money' => 'posts#money'

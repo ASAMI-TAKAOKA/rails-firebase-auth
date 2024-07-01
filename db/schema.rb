@@ -10,51 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_111456) do
-  create_table "baby_foods", force: :cascade do |t|
-    t.string "meal_category"
-    t.string "dish_name"
-    t.string "meal_time"
-    t.string "url"
-    t.string "memo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "meal_date"
-    t.integer "user_id", null: false
-    t.string "user_uid", null: false
-    t.index ["user_id"], name: "index_baby_foods_on_user_id"
+ActiveRecord::Schema[7.1].define(version: 20_240_512_111_456) do
+  create_table 'baby_foods', force: :cascade do |t|
+    t.string 'meal_category'
+    t.string 'dish_name'
+    t.string 'meal_time'
+    t.string 'url'
+    t.string 'memo'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.date 'meal_date'
+    t.integer 'user_id', null: false
+    t.string 'user_uid', null: false
+    t.index ['user_id'], name: 'index_baby_foods_on_user_id'
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "comment_content"
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+  create_table 'comments', force: :cascade do |t|
+    t.string 'comment_content'
+    t.integer 'user_id', null: false
+    t.integer 'post_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['post_id'], name: 'index_comments_on_post_id'
+    t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "title", null: false
-    t.text "body", null: false
-    t.string "user_uid", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "category"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+  create_table 'posts', force: :cascade do |t|
+    t.integer 'user_id'
+    t.string 'title', null: false
+    t.text 'body', null: false
+    t.string 'user_uid', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'category'
+    t.index ['user_id'], name: 'index_posts_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "uid", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["uid"], name: "index_users_on_uid", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'uid', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['uid'], name: 'index_users_on_uid', unique: true
   end
 
-  add_foreign_key "baby_foods", "users"
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
-  add_foreign_key "posts", "users"
+  add_foreign_key 'baby_foods', 'users'
+  add_foreign_key 'comments', 'posts'
+  add_foreign_key 'comments', 'users'
+  add_foreign_key 'posts', 'users'
 end
