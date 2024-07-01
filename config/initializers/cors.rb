@@ -7,9 +7,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # end
     # あとで要修正
     # origins "https://mom-and-baby-help.com", "http://localhost:3000"
-    origins "*"
+    origins '*'
 
-    resource "*",
+    resource '*',
              headers: :any,
              methods: %i[get post put patch delete options head]
   end

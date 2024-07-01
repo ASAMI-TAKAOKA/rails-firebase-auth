@@ -6,21 +6,21 @@
 #     in order to grab the certificate where the key is the key id.
 #   2. Then decode for verification.
 
-require "jwt"
-require "net/http"
+require 'jwt'
+require 'net/http'
 
 module FirebaseAuth
-  ISSUER_PREFIX = "https://securetoken.google.com/".freeze
-  ALGORITHM = "RS256".freeze
+  ISSUER_PREFIX = 'https://securetoken.google.com/'.freeze
+  ALGORITHM = 'RS256'.freeze
 
   # The firebase project id will be used as the [aud] - Audience,
   # and in the issuer url as "https://securetoken.google.com/<FIREBASE_PROJECT_ID>"
-  FIREBASE_PROJECT_ID = ENV["FIREBASE_PROJECT_ID"]
+  FIREBASE_PROJECT_ID = ENV['FIREBASE_PROJECT_ID']
 
   # The url to load public key certificates.
   # The key of the certificates is the key id from the token header.
   CERT_URI =
-    "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com".freeze
+    'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com'.freeze
 
   # The wrapper of verification:
   #   1. Decode the token without verification in order to grab the header;
@@ -61,11 +61,9 @@ module FirebaseAuth
 
     errors = verify(id_token, public_key)
 
-    if errors.empty?
-      return { uid: payload["user_id"] }
-    else
-      return { errors: errors.join(" / ") }
-    end
+    return { uid: payload['user_id'] } if errors.empty?
+
+    { errors: errors.join(' / ') }
   end
 
   private
@@ -75,12 +73,12 @@ module FirebaseAuth
   # acquire the appropriate certificate to verify the token.
   def decode_unverified(token)
     decode_token(
-      token: token,
+      token:,
       key: nil,
       verify: false,
       options: {
-        algorithm: ALGORITHM,
-      },
+        algorithm: ALGORITHM
+      }
     )
   end
 
@@ -96,12 +94,12 @@ module FirebaseAuth
 
   # Use the kid - Key ID in headers to get the corrosponding public key
   def get_public_key(header)
-    certificate = find_certificate(header["kid"])
+    certificate = find_certificate(header['kid'])
     public_key = OpenSSL::X509::Certificate.new(certificate).public_key
   rescue OpenSSL::X509::CertificateError => e
     raise "Invalid certificate. #{e.message}"
 
-    return public_key
+    public_key
   end
 
   # Find the corresponding certificate where the key is kid
@@ -112,12 +110,9 @@ module FirebaseAuth
   # }
   def find_certificate(kid)
     certificates = fetch_certificates
-    unless certificates.keys.include?(kid)
-      raise "Invalid 'kid', do not correspond to one of valid public keys."
-    end
+    raise "Invalid 'kid', do not correspond to one of valid public keys." unless certificates.keys.include?(kid)
 
-    valid_certificate = certificates[kid]
-    return valid_certificate
+    certificates[kid]
   end
 
   # Fetches valid google public key certificates from CERT_URL
@@ -128,12 +123,9 @@ module FirebaseAuth
 
     req = Net::HTTP::Get.new(uri.path)
     res = https.request(req)
-    unless res.code == "200"
-      raise "Error: can't obtain valid public key certificates from Google."
-    end
+    raise "Error: can't obtain valid public key certificates from Google." unless res.code == '200'
 
-    certificates = JSON.parse(res.body)
-    return certificates
+    JSON.parse(res.body)
   end
 
   # Verify the signature and data for the provided JWT token.
@@ -144,13 +136,13 @@ module FirebaseAuth
     begin
       decoded_token =
         decode_token(
-          token: token,
-          key: key,
+          token:,
+          key:,
           verify: true,
-          options: decode_options,
+          options: decode_options
         )
     rescue JWT::ExpiredSignature
-      errors << "Firebase ID token has expired. Get a fresh token from your app and try again."
+      errors << 'Firebase ID token has expired. Get a fresh token from your app and try again.'
     rescue JWT::InvalidIatError
       errors << "Invalid ID token. 'Issued-at time' (iat) must be in the past."
     rescue JWT::InvalidIssuerError
@@ -164,18 +156,14 @@ module FirebaseAuth
     end
 
     # verify subject ("sub") and algorithm ("alg")
-    sub = decoded_token[0]["sub"]
-    alg = decoded_token[1]["alg"]
+    sub = decoded_token[0]['sub']
+    alg = decoded_token[1]['alg']
 
-    unless sub.is_a?(String) && !sub.empty?
-      errors << "Invalid ID token. 'Subject' (sub) must be a non-empty string."
-    end
+    errors << "Invalid ID token. 'Subject' (sub) must be a non-empty string." unless sub.is_a?(String) && !sub.empty?
 
-    unless alg == ALGORITHM
-      errors << "Invalid ID token. 'alg' must be '#{ALGORITHM}', but got #{alg}."
-    end
+    errors << "Invalid ID token. 'alg' must be '#{ALGORITHM}', but got #{alg}." unless alg == ALGORITHM
 
-    return errors
+    errors
   end
 
   def decode_options
@@ -185,7 +173,7 @@ module FirebaseAuth
       algorithm: ALGORITHM,
       verify_iat: true,
       verify_iss: true,
-      verify_aud: true,
+      verify_aud: true
     }
   end
 end
