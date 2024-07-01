@@ -94,11 +94,13 @@ module FirebaseAuth
 
   # Use the kid - Key ID in headers to get the corrosponding public key
   def get_public_key(header)
-    certificate = find_certificate(header['kid'])
-    public_key = OpenSSL::X509::Certificate.new(certificate).public_key
-    return public_key
-  rescue OpenSSL::X509::CertificateError => e
-    raise "Invalid certificate. #{e.message}"
+    begin
+      certificate = find_certificate(header['kid'])
+      public_key = OpenSSL::X509::Certificate.new(certificate).public_key
+      return public_key
+    rescue OpenSSL::X509::CertificateError => e
+      raise "Invalid certificate. #{e.message}" # 任意のエラーを明示的に発生させる
+    end
   end
 
   # Find the corresponding certificate where the key is kid
