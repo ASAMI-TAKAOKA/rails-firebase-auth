@@ -21,6 +21,6 @@ production:
   adapter: postgresql
   encoding: unicode
   pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: rails_firebase_auth_database
+  database: rails_firebase_auth_database2
   username: asami_takaoka
   password: <%= ENV['DB_PASSWORD'] %> # .env.productionにメモ
