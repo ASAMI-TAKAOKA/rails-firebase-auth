@@ -1,13 +1,21 @@
 class Api::V1::BabyFoodsController < ApplicationController
-  skip_before_action :authenticate_token, only: %i[index]
+  # skip_before_action :authenticate_token, only: %i[index] これがあるとindexが'User not authenticated'となる
   before_action :set_baby_food_data, only: %i[update destroy]
 
   def index
-    baby_foods = BabyFood.all
+    # TODO: フロントエンドは問題なく表示されるが、
+    # current_userがnilを返し、http://localhost:3001/api/v1/baby_foods/にアクセスすると
+    # 'User not authenticated'を返す
+    if current_user.nil?
+      render json: { message: 'Unauthorized', errors: ['User not authenticated'] }, status: :unauthorized
+      return
+    end
+
+    @baby_foods = current_user.baby_foods
                          .order(:meal_date)
                          .order(Arel.sql("CASE WHEN meal_time = 'break_fast' THEN 1 WHEN meal_time = 'lunch' THEN 2 WHEN meal_time = 'dinner' THEN 3 END"))
                          .order(Arel.sql("CASE WHEN meal_category = 'main_dish' THEN 1 WHEN meal_category = 'main_course' THEN 2 WHEN meal_category = 'side_dish' THEN 3 WHEN meal_category = 'soup' THEN 4 WHEN meal_category = 'other' THEN 5 END"))
-    render json: baby_foods
+    render json: @baby_foods
   end
 
   def show

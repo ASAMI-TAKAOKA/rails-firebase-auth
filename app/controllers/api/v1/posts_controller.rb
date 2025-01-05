@@ -3,8 +3,8 @@ class Api::V1::PostsController < ApplicationController
   before_action :set_post_data, only: %i[update destroy]
 
   def index
-    posts = Post.all.order(created_at: :DESC)
-    render json: posts
+    @posts = Post.includes(:user).order(created_at: :desc)
+    render json: @posts
   end
 
   def show
