@@ -56,6 +56,7 @@ module FirebaseAuth
   # }
 
   def verify_id_token(id_token)
+    Rails.logger.debug "ID Token: #{id_token}"
     payload, header = decode_unverified(id_token)
     public_key = get_public_key(header)
 
